@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Simple Submit</title></head>
+<body>
+  <h3>Submit Report (simple)</h3>
+  <label>Bearer Token: <input id="token" style="width:60%"/></label><br/><br/>
+  <input id="title" placeholder="title"/><br/><br/>
+  <textarea id="desc" placeholder="description"></textarea><br/><br/>
+  Category: <input id="cat" value="pothole"/><br/><br/>
+  Severity: <select id="severity"><option>not urgent</option><option>average</option><option>critical</option></select><br/><br/>
+  Lat: <input id="lat" value="12.975"/>, Lon: <input id="lon" value="77.595"/><br/><br/>
+  <input id="file" type="file" multiple/><br/><br/>
+  <button onclick="submit()">Submit</button>
+  <pre id="out"></pre>
+<script>
+async function submit() {
+  const t = document.getElementById('token').value;
+  const files = document.getElementById('file').files;
+  const fd = new FormData();
+  fd.append('title', document.getElementById('title').value);
+  fd.append('description', document.getElementById('desc').value);
+  fd.append('category', document.getElementById('cat').value);
+  fd.append('severity', document.getElementById('severity').value);
+  fd.append('lat', document.getElementById('lat').value);
+  fd.append('lon', document.getElementById('lon').value);
+  for (let i=0;i<files.length;i++) fd.append('file', files[i]);
+  const resp = await fetch('/reports/submit', { method:'POST', body: fd, headers: { 'Authorization': 'Bearer '+ t } });
+  const j = await resp.json();
+  document.getElementById('out').textContent = JSON.stringify(j, null, 2);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Report</title>
+</head>
+<body>
+    <h2>Update Report: {{ report.title }}</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <label>Status:</label><br>
+        <select name="status" required>
+            <option value="submitted" {% if report.status=='submitted' %}selected{% endif %}>Submitted</option>
+            <option value="acknowledged" {% if report.status=='acknowledged' %}selected{% endif %}>Acknowledged</option>
+            <option value="in_progress" {% if report.status=='in_progress' %}selected{% endif %}>In Progress</option>
+            <option value="resolved" {% if report.status=='resolved' %}selected{% endif %}>Resolved</option>
+            <option value="rejected" {% if report.status=='rejected' %}selected{% endif %}>Rejected</option>
+        </select><br><br>
+
+        <label>Upload Resolution Files (if resolved):</label><br>
+        <input type="file" name="resolution_images" multiple><br><br>
+
+        <button type="submit">Update</button>
+    </form>
+    <br>
+    <a href="{{ url_for('staff.view_reports') }}">Back to Reports</a>
+</body>
+</html>

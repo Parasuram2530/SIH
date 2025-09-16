@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Close Report</title>
+</head>
+<body>
+    <h2>Confirm Close Report: {{ report.title }}</h2>
+    <form method="POST" action="{{ url_for('staff.confirm_close', report_id=report._id) }}">
+        <p>Are you sure you want to close this report?</p>
+        <button type="submit">Confirm Close</button>
+    </form>
+    <br>
+    <a href="{{ url_for('staff.view_reports') }}">Back to Reports</a>
+</body>
+</html>

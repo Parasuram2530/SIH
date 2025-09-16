@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Details</title>
+</head>
+<body>
+    <h2>Report Details</h2>
+    <p><b>ID:</b> {{ report['_id'] }}</p>
+    <p><b>Title:</b> {{ report['title'] }}</p>
+    <p><b>Description:</b> {{ report['description'] }}</p>
+    <p><b>Category:</b> {{ report['category'] }}</p>
+    <p><b>Status:</b> {{ report['status'] }}</p>
+    <p><b>Reporter Name:</b> {{ report.get('name', 'N/A') }}</p>
+    <p><b>Mobile:</b> {{ report.get('mobile', 'N/A') }}</p>
+    <p><b>Pincode:</b> {{ report.get('pincode', 'N/A') }}</p>
+    <p><b>Created At:</b> {{ report['created_at'] }}</p>
+    <p><b>Last Updated:</b> {{ report['updated_at'] }}</p>
+
+    <br>
+    <a href="{{ url_for('staff.view_reports') }}">⬅ Back to Reports</a>
+</body>
+</html>

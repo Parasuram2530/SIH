@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Submit Report</title></head>
+<body>
+  <h2>Submit Report</h2>
+  <form action="/citizen/submit" method="post" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="Title" required><br>
+    <textarea name="description" placeholder="Description"></textarea><br>
+    <input type="text" name="category" placeholder="Category"><br>
+    <input type="file" name="file"><br>
+    <button type="submit">Submit Report</button>
+  </form>
+</body>
+</html>

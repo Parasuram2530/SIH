@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff - Reports</title>
+</head>
+<body>
+    <h1>Open Reports</h1>
+
+    <p><a href="/staff/reports/closed">View Closed Reports</a></p>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Location</th>
+        </tr>
+        {% for report in reports %}
+        <tr>
+            <td><a href="/staff/reports/{{ report._id }}">{{ report._id }}</a></td>
+            <td>{{ report.title }}</td>
+            <td>{{ report.description }}</td>
+            <td>{{ report.category }}</td>
+            <td>{{ report.status }}</td>
+            <td>{{ report.location }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

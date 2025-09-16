@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assign Report</title>
+</head>
+<body>
+    <h2>Assign Report: {{ report.title }}</h2>
+    <form method="POST">
+        <label>Department:</label><br>
+        <input type="text" name="department" required><br><br>
+        <label>Assign To (optional):</label><br>
+        <input type="text" name="assigned_to"><br><br>
+        <button type="submit">Assign</button>
+    </form>
+    <br>
+    <a href="{{ url_for('staff.view_reports') }}">Back to Reports</a>
+</body>
+</html>
