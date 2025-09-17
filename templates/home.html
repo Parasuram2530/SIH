@@ -1,1 +1,126 @@
-<h1>Civic Issue Reporter</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Citizen Connect</title>
+    <style>
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+           
+            background: linear-gradient(135deg, #2b3990, #0047b8); 
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        
+        @keyframes fadeInRise {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: fadeInRise 1s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        
+        h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+
+        
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        
+        .button {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .button-citizen {
+            background-color: #ffffff;
+            color: #2b3990;
+        }
+
+        .button-citizen:hover {
+            background-color: #f0f0f0;
+        }
+
+        .button-staff {
+            background-color: #333d4e;
+            color: #ffffff;
+        }
+
+        .button-staff:hover {
+            background-color: #262c38;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Citizen Connect</h1>
+        <p>Your platform for community reporting. Please choose your login type to continue.</p>
+        <div class="button-group">
+            <a href="{{ url_for('citizen.login_page') }}" class="button button-citizen">
+                Citizen Login
+            </a>
+            <a href="{{ url_for('staff.login_page') }}" class="button button-staff">
+                Staff Login
+            </a>
+        </div>
+    </div>
+</body>
+</html>

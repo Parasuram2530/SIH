@@ -1,14 +1,114 @@
+
+
+
 <!DOCTYPE html>
 <html>
-<head><title>Citizen Login</title></head>
+<head>
+    <title>Citizen Login</title>
+    <style>
+       
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+           
+            background: linear-gradient(135deg, #4d5da8, #3b82f6); 
+            color: #4a5568;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+       
+        .login-container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
+
+       
+        h2 {
+            font-size: 2.5em;
+            color: #2d3748;
+            margin-bottom: 25px;
+        }
+
+        
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 24px); 
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #4d5da8; 
+            box-shadow: 0 0 0 3px rgba(77, 93, 168, 0.2);
+        }
+
+        
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background-color: #4d5da8; 
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #3b4887;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(77, 93, 168, 0.2);
+        }
+
+       
+        a[href="/citizen/register"] {
+            display: block; 
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #4d5da8; 
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a[href="/citizen/register"]:hover {
+            text-decoration: underline;
+            color: #3b4887;
+        }
+    </style>
+</head>
 <body>
-  <h2>Login</h2>
-  <form action="/citizen/login" method="post">
-    <input type="email" name="email" placeholder="Email" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <button type="submit">Login</button>
-  </form>
-  New User? 
-  <a href="/citizen/register">register</a>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/citizen/login" method="post">
+            <input type="email" name="email" placeholder="Email" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <button type="submit">Login</button>
+        </form>
+        New User? 
+        <a href="/citizen/register">register</a>
+    </div>
 </body>
 </html>
+
+
