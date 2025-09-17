@@ -57,6 +57,7 @@ def login_page():
         session["user_id"] = str(user["_id"])
         session["user_email"] = user["email"]
         session["user_name"] = user.get("name", "")
+        session["pincode"] = user.get("pincode")
         return redirect(url_for("citizen.submit_page"))
     return render_template("login.html")
 
@@ -96,6 +97,7 @@ def submit_page():
             "media": saved_files,
             "reporter_email": session.get("user_email"),
             "reported_id": session.get("user_id"),
+            "pincode": session.get("pincode"),
             "status": "submitted",
             "assigned_department": auto_assign_department(category),
             "notifications": [{"ts": datetime.datetime.utcnow(), "msg": "Report Submitted"}],

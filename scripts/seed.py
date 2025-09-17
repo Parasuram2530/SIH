@@ -6,11 +6,29 @@ import datetime
 
 def run():
     client = MongoClient(Config.MONGO_URI)
-    db = client.get_default_database()
+    db = client["sihdb"]
+
     users = db.users
     users.delete_many({})  
-    users.insert_one({"email":"admin@local","password":hash_password("admin123"), "name":"Admin", "role":"admin", "created_at": datetime.datetime.utcnow()})
-    users.insert_one({"email":"staff@local","password":hash_password("staff123"), "name":"Staff", "role":"staff", "created_at": datetime.datetime.utcnow()})
+
+    users.insert_one({
+        "email": "admin@local",
+        "password": hash_password("admin123"),
+        "name": "Admin",
+        "role": "admin",
+        "pincode": "000000",   
+        "created_at": datetime.datetime.utcnow()
+    })
+
+    users.insert_one({
+        "email": "staff@local",
+        "password": hash_password("staff123"),
+        "name": "Staff",
+        "role": "staff",
+        "pincode": "560001",   
+        "created_at": datetime.datetime.utcnow()
+    })
+
     print("Seeded users: admin@local/admin123  staff@local/staff123")
     client.close()
 

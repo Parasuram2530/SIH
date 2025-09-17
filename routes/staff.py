@@ -20,6 +20,7 @@ def login_page():
         session["user_email"] = user["email"]
         session["role"] = user["role"]
         session["name"] = user.get("name", "")
+        session["staff_pincode"] = user.get("pincode")
         return redirect(url_for("staff.view_reports"))
     return render_template("staff_login.html")
 
@@ -66,7 +67,7 @@ def assign_report(report_id):
         )
         return redirect(url_for("staff.view_reports"))
 
-    report = mongo.db.reports.find_one({"_id": mongo.db.ObjectId(report_id)})
+    report = mongo.db.reports.find_one({"_id": ObjectId(report_id)})
     if report:
         report["_id"] = str(report["_id"])
     return render_template("assign_report.html", report=report)
