@@ -1,7 +1,8 @@
-from flask import Blueprint, request, render_template, redirect, url_for, session, current_app
+from flask import Blueprint, request, render_template, redirect, url_for, session, current_app, send_from_directory
 from extensions import mongo
 import datetime, os, uuid
 from bson import ObjectId
+from auth import verify_password
 
 staff_bp = Blueprint("staff", __name__)
 
@@ -13,9 +14,10 @@ def login_page():
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
-        user = mongo.db.users.find_one({"email": email})
-        if not user or user.get("role") not in ("staff", "admin"):
+        user = mongo.db.users.find_one({"email": email, "role": {"$in": ["staff","admin"]}})
+        if not user or not verify_password(password, user["password"]):
             return "Invalid credentials", 401
+
         session["user_id"] = str(user["_id"])
         session["user_email"] = user["email"]
         session["role"] = user["role"]
@@ -25,6 +27,7 @@ def login_page():
     return render_template("staff_login.html")
 
 
+
 @staff_bp.route("/reports/view")
 def view_reports():
     staff_pincode = session.get("staff_pincode")  
@@ -32,8 +35,8 @@ def view_reports():
         return "Staff pincode not found. Please log in.", 403
 
     reports = list(mongo.db.reports.find({
-        "status": {"$ne": "closed"},
-        "pincode": staff_pincode
+        "status": {"$ne": "closed"}
+        # "pincode": staff_pincode
     }))
     return render_template("staff_reports.html", reports=reports)
 
@@ -45,7 +48,7 @@ def closed_reports():
 
     reports = list(mongo.db.reports.find({
         "status": "closed",
-        "pincode": staff_pincode
+        # "pincode": staff_pincode
     }))
     return render_template("staff_reports_closed.html", reports=reports)
 

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,7 +131,7 @@
 <body>
     <div class="register-container">
         <h2>Register</h2>
-        <form id="register-form" action="/citizen/register" method="post">
+        <form id="register-form" action="{{ url_for('citizen.register_page') }}" method="POST">
             <input type="text" name="fname" placeholder="First Name" required><br>
             <input type="text" name="lname" placeholder="Last Name" required><br>
             <input type="email" name="email" placeholder="Email" required><br>
@@ -154,58 +153,66 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const otpBtn = document.getElementById('otp-btn');
-            const verifyBtn = document.getElementById('verify-btn');
-            const registerBtn = document.getElementById('register-btn');
-            const otpField = document.getElementById('otp-field');
-            const otpInput = document.getElementById('otp-input');
-            const form = document.getElementById('register-form');
-            const phoneInput = form.querySelector('input[name="phone_no"]');
+    document.addEventListener('DOMContentLoaded', function() {
+        const otpBtn = document.getElementById('otp-btn');
+        const verifyBtn = document.getElementById('verify-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const otpField = document.getElementById('otp-field');
+        const otpInput = document.getElementById('otp-input');
+        const form = document.getElementById('register-form');
+        const phoneInput = form.querySelector('input[name="phone_no"]');
 
-            
-            const defaultOtp = '357481';
+        const defaultOtp = '357481';
 
-            
-            function generateOtp() {
-                alert("An OTP has been sent to your phone number!");
-                otpField.style.display = 'block';
-                otpBtn.disabled = true;
+       function generateOtp() {
+    alert("An OTP has been sent to your phone number!")
+    otpField.style.display = 'block'
+    otpInput.setAttribute("required", "true")   // make required only when visible
+    otpBtn.disabled = true
+}
+
+function verifyOtp() {
+    const enteredOtp = otpInput.value.trim()
+    if (enteredOtp === defaultOtp) {
+        alert('OTP verified successfully!')
+        otpField.style.display = 'none'
+        otpInput.removeAttribute("required")    // remove required so form can submit
+        registerBtn.disabled = false
+        verifyBtn.disabled = true
+        otpInput.value = ''
+    } else {
+        alert('Invalid OTP. Please try again.')
+    }
+}
+
+
+        otpBtn.addEventListener('click', function() {
+            if (phoneInput.value.trim() === '') {
+                alert('Please enter your phone number first.');
+                return;
             }
-
-          
-            function verifyOtp() {
-                const enteredOtp = otpInput.value.trim();
-
-                if (enteredOtp === defaultOtp) {
-                    alert('OTP verified successfully!');
-                    otpField.style.display = 'none';
-                    registerBtn.disabled = false;
-                    verifyBtn.disabled = true;
-                    otpInput.value = ''; 
-                } else {
-                    alert('Invalid OTP. Please try again.');
-                }
-            }
-
-            
-            otpBtn.addEventListener('click', function(event) {
-                if (phoneInput.value.trim() === '') {
-                    alert('Please enter your phone number first.');
-                    return;
-                }
-                generateOtp();
-            });
-
-           
-            verifyBtn.addEventListener('click', function(event) {
-                verifyOtp();
-            });
+            generateOtp();
         });
-    </script>
+
+        verifyBtn.addEventListener('click', function() {
+            verifyOtp();
+        });
+
+        // ✅ Handle form submit
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // stop normal form post
+
+            if (registerBtn.disabled) {
+                alert("Please verify OTP before registering.");
+                return;
+            }
+         console.log("registration successful");
+            // If everything is good, redirect
+            alert("Registration successful!");
+            window.location.href = "/citizen/login";  // 👈 redirect here
+        });
+    });
+</script>
+
 </body>
 </html>
-
-
-
-
